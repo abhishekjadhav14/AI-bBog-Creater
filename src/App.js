@@ -4,10 +4,13 @@ import {  useState } from 'react';
 function App() {
   const [userInput, setUserInput] = useState(''); // State variable to track user input
   const [responseContent, setResponseContent] = useState(null);
+  const [isLoading, setIsLoading] = useState(false); // Loading indicator state
 
   const apiKey = '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';
 
   const handleSearchClick = () => {
+    setIsLoading(true); // Set loading to true when fetching data
+
     const requestData = {
       model: 'gpt-3.5-turbo',
       messages: [
@@ -44,6 +47,9 @@ function App() {
       })
       .catch((error) => {
         console.error(error);
+      })
+      .finally(() => {
+        setIsLoading(false); // Set loading back to false after data is fetched
       });
 
     // Clear the user input after making the API request
@@ -67,7 +73,11 @@ function App() {
         onKeyPress={handleInputKeyPress}
       />
       <button onClick={handleSearchClick}>Search</button>
-      {responseContent !== null && <p>{responseContent}</p>}
+      {isLoading ? (
+        <div className="loading-spinner">Loading...</div>
+      ) : (
+        responseContent !== null && <p>{responseContent}</p>
+      )}
     </div>
   );
 }
