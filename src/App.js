@@ -6,7 +6,7 @@ function App() {
   const [responseContent, setResponseContent] = useState(null);
   const [isLoading, setIsLoading] = useState(false); // Loading indicator state
 
-  const apiKey = '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';
+  const apiKey = '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';
 
   const handleSearchClick = () => {
     setIsLoading(true); // Set loading to true when fetching data
